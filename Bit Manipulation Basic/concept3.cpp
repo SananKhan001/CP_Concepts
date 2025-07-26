@@ -39,45 +39,42 @@ typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef double ld;
 
-bool isEven(int n) {
-    return !(n&1);
+/*
+    You are given two 32-bit numbers, n and m, along with two bit positions i and j. 
+    Your task is to write a method that sets the bits of n between the positions j and i 
+    (inclusive) to the corresponding bits from m.
+    An example provided in the lecture illustrates that for ( n = 15 ), ( i = 1 ), ( j = 3 ), 
+    and ( m = 2 ), the output after applying the steps will be ( 5 ).
+
+    To achieve this, the process consists of the following steps:
+
+    Clearing Bits: Clear the bits in ( n ) from index ( j ) to ( i ).
+    Left Shifting: Left shift ( m ) by index ( i ) to align it with the cleared bits in ( n ).
+    Combining Results: Perform an OR operation between the modified ( n ) (with cleared bits) and 
+    the shifted ( m ) to produce the final result.
+*/
+
+void clear(int &n, int l, int r) {
+    int mask_l = -1 << (l+1);
+    int mask_r = (1 << r)-1;
+
+    int mask = mask_l|mask_r;
+
+    n = n&mask;
 }
 
-int getIthBit(int n, int i) {
-    return ((n & (1 << i)) > 0) ? 1 : 0;
+void replace(int &n, int l, int r, int m) {
+    clear(n, l, r);
+    int mask = m << r;
+    n = n|mask;
 }
-
-int clearIthBit(int n, int i) {
-    return ~(1 << i) & n;
-}
-
-int setIthBit(int n, int i) {
-    return (1 << i) | n;
-}
-
-int clearLastIBits(int n, int i) {
-    return (-1<<(i+1))&n; // -1 or ~0 represents a number with all of its bit as 1
-}
-
-// to update --> first clear then set
-
 void solve() {
-    int n, i; cin >> n >> i;
-    
-    bool isevn = isEven(n);
-    if(isevn) cout << "Even" << endl;
-    else cout << "Odd" << endl;
-
-    int ithbit = getIthBit(n, i);
-    cout << "ith-bit: " << ithbit << endl;
-
-    int ithbit_cleared = clearIthBit(n, i);
-    cout << "after clearing ith bit: " << ithbit_cleared << endl;
-
-    cout << "after setting ith bit: " << setIthBit(ithbit_cleared, i) << endl;
-
-    int ibitscleared = clearLastIBits(n, i);
-    cout << "after clearing last i+1 bits: " << ibitscleared << endl;
+    int t; cin >> t;
+    while(t--) {
+        int n, l, r, m; cin >> n >> l >> r >> m;
+        replace(n, l, r, m);
+        cout << n << endl;
+    }
 }
 
 int32_t main() {

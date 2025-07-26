@@ -39,45 +39,27 @@ typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef double ld;
 
-bool isEven(int n) {
-    return !(n&1);
-}
+// clear bits from l to r
+void clearBitslTor(int &n, int l, int r) {
+    // we have to create 11111111000000011111111 where 0 starts from l and ends at r
+    // 1111111110000000000000 -> -1 << l+1
+    // 0000000000000011111111 -> (1 << r+1)-1
+    
+    int l_mask = -1 << (l+1);
+    int r_mask = (1 << r)-1;
 
-int getIthBit(int n, int i) {
-    return ((n & (1 << i)) > 0) ? 1 : 0;
-}
+    int mask = l_mask|r_mask;
 
-int clearIthBit(int n, int i) {
-    return ~(1 << i) & n;
+    n = n&mask;
 }
-
-int setIthBit(int n, int i) {
-    return (1 << i) | n;
-}
-
-int clearLastIBits(int n, int i) {
-    return (-1<<(i+1))&n; // -1 or ~0 represents a number with all of its bit as 1
-}
-
-// to update --> first clear then set
 
 void solve() {
-    int n, i; cin >> n >> i;
-    
-    bool isevn = isEven(n);
-    if(isevn) cout << "Even" << endl;
-    else cout << "Odd" << endl;
-
-    int ithbit = getIthBit(n, i);
-    cout << "ith-bit: " << ithbit << endl;
-
-    int ithbit_cleared = clearIthBit(n, i);
-    cout << "after clearing ith bit: " << ithbit_cleared << endl;
-
-    cout << "after setting ith bit: " << setIthBit(ithbit_cleared, i) << endl;
-
-    int ibitscleared = clearLastIBits(n, i);
-    cout << "after clearing last i+1 bits: " << ibitscleared << endl;
+    int t; cin >> t;
+    while(t--) {
+        int n, l, r; cin >> n >> l >> r;
+        clearBitslTor(n, l, r);
+        cout << n << endl;
+    }
 }
 
 int32_t main() {
