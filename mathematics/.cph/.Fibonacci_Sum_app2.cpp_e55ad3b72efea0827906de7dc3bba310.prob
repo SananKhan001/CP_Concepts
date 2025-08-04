@@ -1,0 +1,1 @@
+{"name":"Local: Fibonacci_Sum_app2","url":"/home/sanan/Desktop/CP_Concepts/mathematics/Fibonacci_Sum_app2.cpp","tests":[{"id":1754339602097,"input":"3\n0 3\n3 5\n10 19","output":"4\n10\n10857"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/sanan/Desktop/CP_Concepts/mathematics/Fibonacci_Sum_app2.cpp","group":"local","local":true}
